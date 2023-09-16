@@ -37,7 +37,7 @@ def generate_sensor_names_streets():
     """
     Get all unique sensor names and streets 
     Example:
-        http://127.0.0.1:5000/generate-sensor-names-street
+        http://127.0.0.1:5000/generate-sensor-names-streets
     """
     results = set()
     with open(sensor_location_data_path, "r") as opened_file:
