@@ -63,7 +63,7 @@ def getHistoricalTrafficData():
         - Data is ordered by date
         - Each csv is a sensor
     Example:
-        http://127.0.0.1:5000/historical-traffic-data/search?date=2023-06-12T18:26:00.000000Z
+        http://127.0.0.1:5000/historical-traffic-data/search?date=2023-06-12T18:26
     """
     date_search = request.args.get('date')
     if not date_search:
