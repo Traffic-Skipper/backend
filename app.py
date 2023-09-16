@@ -18,14 +18,44 @@ def getPrediction():
     print(args['date'])
     return 'Prediction date {}'.format(args['date'])
 
+@app.route('/generate-sensor-names', methods=['GET'])
+def generate_sensor_names():
+    """
+    Get all unique sensor names
+    Example:
+        http://127.0.0.1:5000/generate-sensors-names
+    """
+    results = set()
+    with open(sensor_location_data_path, "r") as opened_file:
+        sensor_location_data = csv.reader(opened_file, delimiter=";")
+        for row in sensor_location_data:
+            results.add(row[5])
+    return {"sensor names": list(results)}
+
+@app.route('/generate-sensor-names-streets', methods=['GET'])
+def generate_sensor_names_streets():
+    """
+    Get all unique sensor names and streets 
+    Example:
+        http://127.0.0.1:5000/generate-sensor-names-street
+    """
+    results = set()
+    with open(sensor_location_data_path, "r") as opened_file:
+        sensor_location_data = csv.reader(opened_file, delimiter=";")
+        for row in sensor_location_data:
+            results.add(row[5])
+            results.add(row[8])
+    return {"sensor names": list(results)}
+
 
 @app.route('/sensor/search', methods=['GET'])
-def getSensorLocation():
+def get_sensor_location():
     """
     Get Sensor information regarding its localization
     :query params: name and street
     Example:
         http://127.0.0.1:5000/sensor/search?name=enne
+        http://127.0.0.1:5000/sensor/search?street=18
     """
     name_search = request.args.get('name')
     street_search = request.args.get('street')
@@ -53,7 +83,7 @@ def getSensorLocation():
         return json.JSONEncoder().encode({})
     
 @app.route('/historical-traffic-data/search', methods=['GET'])
-def getHistoricalTrafficData():
+def get_historical_traffic_data():
     """
     Get historical traffic information by all sensors for a specified date
     :query params: search by date in the format '2023-06-12T18:32:00.000000Z' - any substring
