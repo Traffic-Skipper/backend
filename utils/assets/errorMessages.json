@@ -1,0 +1,9 @@
+{
+    "EMPTY_RESPONSE": " Der Datenlieferant ist offline.",
+    "PRV_OFFLINE": "Ein Drittanbieter-System ist momentan offline.",
+    "AGG_OFFLINE": "Der Aggregationsdienst ist momentan offline.",
+    "VD_OFFLINE": "Die Kommunikation zum Verkehrszähler ist unterbrochen oder der Verkehrszähler ist offline. Es werden im Moment keine Daten empfangen.",
+    "VD_ERROR": "Der Verkehrszähler ist defekt und sendet daher keine oder ungültige Daten.",
+    "SENSOR_ERROR": "Der Sensor des Verkehrszählers ist offline oder defekt und sendet daher keine oder ungültige Daten.",
+    "SENSOR_WWD": "Der Sensor hat Verkehr in Gegenrichtung detektiert. Mögliche Ursachen: Umleitung wegen Baustelle, Falschfahrer oder zum Beispiel durch ein Überholmanöver."
+}

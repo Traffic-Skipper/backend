@@ -1,0 +1,9 @@
+{
+    "11": {"vehicle": "Leichtfahrzeuge", "unit": "Fahrzeug/h"},
+    "12": {"vehicle": "Leichtfahrzeuge", "unit": "km/h"},
+    "21": {"vehicle": "Schwerverkehr", "unit": "Fahrzeug/h"},
+    "22": {"vehicle": "Schwerverkehr", "unit": "km/h"},
+    "0": {"vehicle": "Messtellenfehler", "unit": "Messtellenfehler"},
+    "1": {"vehicle": "Nicht Zugewiesen", "unit": "Unbekannt"},
+    "2": {"vehicle": "Nicht Zugewiesen", "unit": "Unbekannt"}
+}

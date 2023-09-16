@@ -4,10 +4,12 @@ import json
 from dtos import SensorLocationResponse, SensorTrafficData
 import logging
 import os
+from utils.soap_to_json import AstraApiService
 
 app = Flask(__name__)
 
 logging.getLogger().setLevel(logging.INFO)
+astra_service = AstraApiService()
 
 sensor_location_data_path = "./sensors_data/SensorLocationMetadata.csv"
 sensor_traffic_data_path = "./data/12_06_to_24_06"
@@ -117,10 +119,10 @@ def get_historical_traffic_data():
     return { "count": len(results), "results": results }
 
             
-        
-            
-
-
-    
-    
-
+@app.route('/soap-thing', methods=['GET'])
+def do_soap_thing():
+    #static_measurements = astra_service.get_static_measurements()
+    #return static_measurements
+    return astra_service.get_measurements()
+    #static_lanes = astra_service.get_static_lanes()
+    #lanes = astra_service.get_lanes()
