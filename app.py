@@ -75,6 +75,16 @@ def get_sensor_location():
         logging.info('Sensor searched %s, no match found', query_search)
         return json.JSONEncoder().encode({})
     
+def get_sensor_lat_and_long(sensor_id):
+     with open(sensor_location_data_path, "r") as opened_file:
+        sensor_location_data = csv.reader(opened_file, delimiter=";")
+
+        for row in sensor_location_data:
+            if row[0] == sensor_id:
+                logging.info('Sensor id %s, latitude %s, longitude %s', row[3], row[4])
+                return row[3], row[4]
+
+    
 @app.route('/historical-traffic-data/search', methods=['GET'])
 def get_historical_traffic_data():
     """
@@ -99,14 +109,17 @@ def get_historical_traffic_data():
         file_path = sensor_traffic_data_path + "/" + file
 
         with open(file_path, "r") as opened_file:
+            sensor_latitude, sensor_longitude = None, None
             sensor_traffic_data = csv.reader(opened_file, delimiter=",")
 
             for row in sensor_traffic_data:
-
                 if date_search in row[2]:
+                    if not sensor_latitude or not sensor_longitude:
+                        sensor_latitude, sensor_longitude = get_sensor_lat_and_long(row[1])
+                        
                     results.append(
                         SensorTrafficData(
-                            row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8]
+                            row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], sensor_latitude, sensor_longitude
                         ).toDictionary()
                     )
                     break  # time already found

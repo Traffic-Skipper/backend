@@ -27,7 +27,7 @@ class SensorLocationResponse:
     
 
 class SensorTrafficData:
-    def __init__(self, record_id, sensor_id, timestamp, car_flow, lorry_flow, any_flow, car_speed, lorry_speed, any_speed):
+    def __init__(self, record_id, sensor_id, timestamp, car_flow, lorry_flow, any_flow, car_speed, lorry_speed, any_speed, latitude, longitude):
         self.record_id = record_id
         self.sensor_id = sensor_id
         self.timestamp = timestamp
@@ -37,6 +37,8 @@ class SensorTrafficData:
         self.car_speed = car_speed
         self.lorry_speed = lorry_speed
         self.any_speed = any_speed
+        self.latitude = latitude
+        self.longitude = longitude
 
     def toDictionary(self):
         return {
@@ -48,6 +50,8 @@ class SensorTrafficData:
                 "any_flow": self.any_flow,
                 "car_speed": self.car_speed,
                 "lorry_speed": self.lorry_speed,
-                "any_speed": self.any_speed
+                "any_speed": self.any_speed,
+                "latitude": self.latitude,
+                "longitude": self.longitude
             }
 
