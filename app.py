@@ -52,34 +52,27 @@ def generate_sensor_names_streets():
 def get_sensor_location():
     """
     Get Sensor information regarding its localization
-    :query params: name and street
+    :query params: name and street (under the tag query)
     Example:
-        http://127.0.0.1:5000/sensor/search?name=enne
-        http://127.0.0.1:5000/sensor/search?street=18
+        http://127.0.0.1:5000/sensor/search?query=enne
+        http://127.0.0.1:5000/sensor/search?query=18
     """
-    name_search = request.args.get('name')
-    street_search = request.args.get('street')
+    query_search = request.args.get('query').lower()
 
-    if not name_search and not street_search:
+    if not query_search:
         return json.JSONEncoder().encode({})
 
     with open(sensor_location_data_path, "r") as opened_file:
         sensor_location_data = csv.reader(opened_file, delimiter=";")
 
         for row in sensor_location_data:
-            if name_search and name_search.lower() in row[5].lower() : # Name
-                logging.info('Sensor name searched %s, match found %s', name_search, row[5])
+            if query_search in row[5].lower() or query_search in row[8].lower(): # Name and Street
+                logging.info('Sensor searched %s, match found %s', query_search, row[5])
                 return SensorLocationResponse(
                     row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8]
                     ).toDictionary()
             
-            elif street_search and street_search.lower() in row[8].lower() : # Street
-                logging.info('Sensor street searched %s, match found %s', street_search, row[8])
-                return SensorLocationResponse(
-                    row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8]
-                    ).toDictionary()
-            
-        logging.info('Sensor searched %s, no match found', name_search if name_search else street_search)
+        logging.info('Sensor searched %s, no match found', query_search)
         return json.JSONEncoder().encode({})
     
 @app.route('/historical-traffic-data/search', methods=['GET'])
